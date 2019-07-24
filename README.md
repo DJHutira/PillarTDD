@@ -11,6 +11,8 @@ The main BabysitterBilling class has one public method called 'totalPay'. It acc
 	
 	2: Stop Hour: An integer for last hour worked, exclusive. Should be rounded up to the nearest whole hour from the actual stop time. For example, if the actual stop time is 3:30, a 4 should be entered. 
 	
-	3: Family: A single character identifying the family worked for. Valid values are "A", "B", and "C". 
+	3: Family ID: A single character identifying the family worked for. Valid values are "A", "B", and "C". 
+
+If the start/stop hours and Family ID are valid, the total pay is returned. If the staart/stop hours or Family ID is invalid, a negative one (-1) is returned.   
 
 To run the tests, go to the main PillarTDD directory, and enter 'mvn test'. The output indicates the number of tests which have succeeded and failed. 
