@@ -65,5 +65,18 @@ public class BabysitterBillingTest
     	
     }
     
+    /*
+     * Test that Babysitter is paid properly when working for Family 'A'.
+     */
+    @Test
+    public void validateFamilyAPayment() {
+    	
+    	assertEquals(15, bb.totalPay(10, 11, 'A'));		//15
+    	assertEquals(90, bb.totalPay(9, 2, 'A'));  		//30+60
+    	assertEquals(60, bb.totalPay(1, 4, 'A'));		//60
+    	assertEquals(190, bb.totalPay(5, 4, 'A'));		//60
+    	
+    }
+    
     
 }    
