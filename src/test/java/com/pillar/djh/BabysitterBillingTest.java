@@ -28,28 +28,55 @@ public class BabysitterBillingTest
     }
     
     /*
-     * Test that a negative one (-1) is returned if the start/stop hours are out of range. 
+     * Test that a RANGE_ERROR is returned if the start/stop hours are out of range. 
      */
     @Test
     public void validateStartStopHour() {
     	
-    	assertEquals(-1, bb.totalPay(4, 5, 'A'));
-    	assertEquals(-1, bb.totalPay(-1, 5, 'A'));
-    	assertEquals(-1, bb.totalPay(5, 13, 'A'));
-    	assertEquals(-1, bb.totalPay(0, 0, 'A'));
-    	assertEquals(-1, bb.totalPay(12, 14, 'A'));    	
+    	assertEquals(BabysitterBilling.RANGE_ERROR, bb.totalPay(4, 5, 'A'));
+    	assertEquals(BabysitterBilling.RANGE_ERROR, bb.totalPay(-1, 5, 'A'));
+    	assertEquals(BabysitterBilling.RANGE_ERROR, bb.totalPay(5, 13, 'A'));
+    	assertEquals(BabysitterBilling.RANGE_ERROR, bb.totalPay(0, 0, 'A'));
+    	assertEquals(BabysitterBilling.RANGE_ERROR, bb.totalPay(12, 14, 'A'));    	
     }
     
     /*
-     * Test that a negative one (-1) is returned if the start hour is greater chronologically than the stop hour. 
+     * Test that a START_STOP_ERROR is returned if the start hour is greater 
+     * chronologically than the stop hour. 
      */
     @Test
     public void validateStartHourLessThanStopHour() {
     	
-    	assertEquals(-1, bb.totalPay(6, 5, 'A'));
-    	assertEquals(-1, bb.totalPay(1, 12, 'A'));
-    	assertEquals(-1, bb.totalPay(2, 1, 'A'));
+    	assertEquals(BabysitterBilling.START_STOP_ERROR, bb.totalPay(6, 5, 'A'));
+    	assertEquals(BabysitterBilling.START_STOP_ERROR, bb.totalPay(1, 12, 'A'));
+    	assertEquals(BabysitterBilling.START_STOP_ERROR, bb.totalPay(2, 1, 'A'));
     	
     }
+    
+    /*
+     * Test that a FAMILY_ID_ERROR is returned if the Family ID id not valid. 
+     */
+    @Test
+    public void validateFamilyID() {
+    	
+    	assertEquals(BabysitterBilling.FAMILY_ID_ERROR, bb.totalPay(5, 6, 'X'));
+    	assertEquals(BabysitterBilling.FAMILY_ID_ERROR, bb.totalPay(5, 6, '1'));
+    	assertEquals(BabysitterBilling.FAMILY_ID_ERROR, bb.totalPay(5, 6, '!'));
+    	
+    }
+    
+    /*
+     * Test that Babysitter is paid properly when working for Family 'A'.
+     */
+    @Test
+    public void validateFamilyAPayment() {
+    	
+    	assertEquals(15, bb.totalPay(10, 11, 'A'));		//15
+    	assertEquals(90, bb.totalPay(9, 2, 'A'));  		//30+60
+    	assertEquals(60, bb.totalPay(1, 4, 'A'));		//60
+    	assertEquals(190, bb.totalPay(5, 4, 'A'));		//60
+    	
+    }
+    
     
 }    
