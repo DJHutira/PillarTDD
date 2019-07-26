@@ -20,5 +20,7 @@ If the start/stop hours and Family ID are valid, the total pay is returned, as a
 	-2: Start/Stop Chronological error: Stop Hour is before Start Hour. 
 	
 	-3: Family ID error: Invalid Family ID. 
+	
+	-99: Unknown error: unexpected condition encountered.
 
 To run the tests, clone the repository to your local computer, then go to the main PillarTDD directory and enter 'mvn test'. This builds the project and runs the tests. The output indicates the number of tests which have succeeded and failed. 
