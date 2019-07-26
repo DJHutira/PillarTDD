@@ -12,10 +12,11 @@ public class BabysitterBilling
 	public final static int RANGE_ERROR = -1;
 	public final static int START_STOP_ERROR = -2;
 	public final static int FAMILY_ID_ERROR = -3;
+	private final static int ARRAY_LENGTH = 12;
 	
 	private final static boolean DEBUG = false;
 	
-	final int familyRate[] = new int[12];
+	final int familyRate[] = new int[ARRAY_LENGTH];
 	
 	public int totalPay(int startHour, int stopHour, char familyId) {
     	
@@ -56,6 +57,7 @@ public class BabysitterBilling
 	//Initialize Family Pay Rate array:
 	//Family A: $15 per hour before 11pm, $20 afterwards. 
 	//Family B: $12 per hour before 10pm, $8 between 10pm and 12am, and $16 afterwards.
+	//Family C: $21 per hour before 9pm, $15 afterwards.
 	private void initRate(char familyId, int[] familyRate) {
 		if (familyId == 'A') {
 			Arrays.fill(familyRate, 0, 6, 15);
@@ -64,11 +66,14 @@ public class BabysitterBilling
 			Arrays.fill(familyRate, 0, 5, 12);
 			Arrays.fill(familyRate, 5, 7, 8);
 			Arrays.fill(familyRate, 7, 12, 16);
+		} else {
+			Arrays.fill(familyRate, 0, 4, 21);
+			Arrays.fill(familyRate, 4, 12, 15);
 		}
 		
 		if (DEBUG) {
-			System.out.println("\n\n");
-			for(int i=0; i<12;i++) {
+			System.out.println("\n\nFamily " + familyId + ":");
+			for(int i = 0; i< ARRAY_LENGTH; i++) {
 				System.out.println("i = " + i + ", rate = " + familyRate[i]);
 			}	
 		}
@@ -105,6 +110,11 @@ public class BabysitterBilling
 			}
 			
 		}
+
+		if (DEBUG) {
+			System.out.println("Total Pay = " + pay);
+		}
+		
 		return pay;
 	}
 	
