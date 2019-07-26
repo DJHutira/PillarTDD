@@ -79,7 +79,7 @@ public class BabysitterBillingTest
     }
 
     /*
-     * Test that Babysitter is paid properly when working for Family 'B.
+     * Test that Babysitter is paid properly when working for Family 'B'.
      */
     @Test
     public void validateFamilyBPayment() {
@@ -90,5 +90,17 @@ public class BabysitterBillingTest
     	assertEquals(140, bb.totalPay(5, 4, 'B'));		//5*12+2*8+4*16
     	
     }
-    
+
+    /*
+     * Test that Babysitter is paid properly when working for Family 'C'.
+     */
+    @Test
+    public void validateFamilyCPayment() {
+    	
+    	assertEquals(21, bb.totalPay(8, 9, 'C'));		//21
+    	assertEquals(96, bb.totalPay(8, 2, 'C'));  		//21+5*15
+    	assertEquals(45, bb.totalPay(1, 4, 'C'));		//3*15
+    	assertEquals(189, bb.totalPay(5, 4, 'C'));		//4*21+7*15
+    	
+    }
 }    
