@@ -47,17 +47,24 @@ public class BabysitterBilling
     		return 0;
     	}
     	
-    	//At this point we've validated input data. 
-    	//Calculate total pay based on start/stop hour and rate array. 
+    	//Calculate total pay based on start/stop hour and rate schedule. 
     	initRate(familyId, familyRate);
     	return calculatePay(startHour, stopHour, familyRate);
     	
     }
 	
-	//Initialize Family A Pay Rate array: $15 before 11pm, $20 afterwards. 
-	private void initRate(char FamilyId, int[] familyRate) {
-		Arrays.fill(familyRate, 0, 6, 15 );
-		Arrays.fill(familyRate, 6, 12, 20 );
+	//Initialize Family Pay Rate array:
+	//Family A: $15 per hour before 11pm, $20 afterwards. 
+	//Family B: $12 per hour before 10pm, $8 between 10pm and 12am, and $16 afterwards.
+	private void initRate(char familyId, int[] familyRate) {
+		if (familyId == 'A') {
+			Arrays.fill(familyRate, 0, 6, 15);
+			Arrays.fill(familyRate, 6, 12, 20);
+		} else if (familyId == 'B') {
+			Arrays.fill(familyRate, 0, 5, 12);
+			Arrays.fill(familyRate, 5, 7, 8);
+			Arrays.fill(familyRate, 7, 12, 16);
+		}
 		
 		if (DEBUG) {
 			System.out.println("\n\n");

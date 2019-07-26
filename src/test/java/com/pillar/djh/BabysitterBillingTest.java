@@ -72,11 +72,23 @@ public class BabysitterBillingTest
     public void validateFamilyAPayment() {
     	
     	assertEquals(15, bb.totalPay(10, 11, 'A'));		//15
-    	assertEquals(90, bb.totalPay(9, 2, 'A'));  		//30+60
-    	assertEquals(60, bb.totalPay(1, 4, 'A'));		//60
-    	assertEquals(190, bb.totalPay(5, 4, 'A'));		//60
+    	assertEquals(90, bb.totalPay(9, 2, 'A'));  		//15+15+20+20+20
+    	assertEquals(60, bb.totalPay(1, 4, 'A'));		//20+20+20
+    	assertEquals(190, bb.totalPay(5, 4, 'A'));		//6*15+5*20
     	
     }
-    
+
+    /*
+     * Test that Babysitter is paid properly when working for Family 'B.
+     */
+    @Test
+    public void validateFamilyBPayment() {
+    	
+    	assertEquals(12, bb.totalPay(9, 10, 'B'));		//12
+    	assertEquals(60, bb.totalPay(9, 2, 'B'));  		//12+8+8+16+16
+    	assertEquals(48, bb.totalPay(1, 4, 'B'));		//3*16
+    	assertEquals(140, bb.totalPay(5, 4, 'B'));		//5*12+2*8+4*16
+    	
+    }
     
 }    
