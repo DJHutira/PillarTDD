@@ -21,4 +21,6 @@ If the start/stop hours and Family ID are valid, the total pay is returned, as a
 	
 	-3: Family ID error: Invalid Family ID. 
 
-To run the tests, clone the repository to your local computer, then go to the main PillarTDD directory and enter 'mvn test'. This downloads dependencies, builds the project and runs the tests. The output indicates the number of tests which have succeeded and failed. 
+To run the tests, clone the repository to your local computer, then go to the main PillarTDD directory and enter 'mvn test'. This downloads dependencies, builds the project and runs the tests. The output indicates the number of tests which have succeeded and failed.
+
+To debug the code, create an environment variable named BabysitterBillingDebug and set its value to "true". In Debug mode the information used in each calculation will be printed out. Debugging can be turned off by setting this variable's value to "false", or by deleting it (default).

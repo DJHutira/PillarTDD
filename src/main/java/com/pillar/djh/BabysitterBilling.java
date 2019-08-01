@@ -14,12 +14,20 @@ public class BabysitterBilling
 	public final static int FAMILY_ID_ERROR = -3;
 	private final static int ARRAY_LENGTH = 12;
 	
-	private final static boolean DEBUG = false;
+	private static boolean debug = false;
 	
 	private final int familyRate[] = new int[ARRAY_LENGTH];
 	
 	public int totalPay(int startHour, int stopHour, char familyId) {
-    	
+	    
+	    //Read debug environment variable.
+	  String debugEnv = System.getenv("BabysitterBillingDebug");
+	    if (debugEnv != null && debugEnv.equalsIgnoreCase("true")) {
+	        debug = true;
+	    } else {
+	        debug = false;
+	    }
+	    
     	//Check that start/stop hours are in range: All integers 1-12 inclusive are valid, 
     	//except that the start hour cannot be 4. 
     	if((startHour == 4) ||
@@ -29,10 +37,10 @@ public class BabysitterBilling
     	}
     	
     	//Check that stop hour is greater chronologically than start hour: 
-		//Possible errors:
+    	//Possible errors:
     	//stop is before start and both start and stop are before 12, 
-		//stop is before 12 and start is after 12, 
-		//or stop is before start and both start and stop are after 12. 
+    	//stop is before 12 and start is after 12, 
+    	//or stop is before start and both start and stop are after 12. 
     	if (stopBeforeStartBefore12 (startHour, stopHour) ||
     		stopBefore12StartAfter12 (startHour, stopHour) ||	
     		stopBeforeStartAfter12 (startHour, stopHour)) {
@@ -93,7 +101,7 @@ public class BabysitterBilling
 			Arrays.fill(familyRate, 4, 12, 15);
 		}
 		
-		if (DEBUG) {
+		if (debug) {
 			System.out.println("\n\nFamily " + familyId + ":");
 			for(int i = 0; i< ARRAY_LENGTH; i++) {
 				System.out.println("i = " + i + ", rate = " + familyRate[i]);
@@ -119,7 +127,7 @@ public class BabysitterBilling
 		int startOffset = convertHourToOffset(startHour);
 		int stopOffset = convertHourToOffset(stopHour);
 		
-		if (DEBUG) {
+		if (debug) {
 			System.out.println("\nStart Offset: " + startOffset);
 			System.out.println("Stop Offset: " + stopOffset);
 		}
@@ -127,13 +135,13 @@ public class BabysitterBilling
 		for (int i = startOffset; i < stopOffset; i++) {
 			pay += familyRate[i];
 			
-			if (DEBUG) {
+			if (debug) {
 				System.out.println("Pay Rate[" + i + "] = " + familyRate[i]);
 			}
 			
 		}
 
-		if (DEBUG) {
+		if (debug) {
 			System.out.println("Total Pay = " + pay);
 		}
 		
