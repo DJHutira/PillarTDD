@@ -16,7 +16,7 @@ public class BabysitterBilling
 	
 	private final static boolean DEBUG = false;
 	
-	final int familyRate[] = new int[ARRAY_LENGTH];
+	private final int familyRate[] = new int[ARRAY_LENGTH];
 	
 	public int totalPay(int startHour, int stopHour, char familyId) {
     	
@@ -49,8 +49,8 @@ public class BabysitterBilling
     	}
     	
     	//Calculate total pay based on start/stop hour and rate schedule. 
-    	initRate(familyId, familyRate);
-    	return calculatePay(startHour, stopHour, familyRate);
+    	initRate(familyId);
+    	return calculatePay(startHour, stopHour);
     	
     }
 	
@@ -58,7 +58,7 @@ public class BabysitterBilling
 	//Family A: $15 per hour before 11pm, $20 afterwards. 
 	//Family B: $12 per hour before 10pm, $8 between 10pm and 12am, and $16 afterwards.
 	//Family C: $21 per hour before 9pm, $15 afterwards.
-	private void initRate(char familyId, int[] familyRate) {
+	private void initRate(char familyId) {
 		if (familyId == 'A') {
 			Arrays.fill(familyRate, 0, 6, 15);
 			Arrays.fill(familyRate, 6, 12, 20);
@@ -92,7 +92,7 @@ public class BabysitterBilling
 	}
 	
 	//Calculate pay based on rate and start/stop hour.
-	private int calculatePay(int startHour, int stopHour, int[] payRate) {
+	private int calculatePay(int startHour, int stopHour) {
 		int pay = 0;
 		int startOffset = convertHourToOffset(startHour);
 		int stopOffset = convertHourToOffset(stopHour);
@@ -103,10 +103,10 @@ public class BabysitterBilling
 		}
 			
 		for (int i = startOffset; i < stopOffset; i++) {
-			pay += payRate[i];
+			pay += familyRate[i];
 			
 			if (DEBUG) {
-				System.out.println("Pay Rate[" + i + "] = " + payRate[i]);
+				System.out.println("Pay Rate[" + i + "] = " + familyRate[i]);
 			}
 			
 		}
