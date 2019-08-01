@@ -29,12 +29,13 @@ public class BabysitterBilling
     	}
     	
     	//Check that stop hour is greater chronologically than start hour: 
-		//Possible errors are if stop is less than start and both start and stop are before 12, 
+		//Possible errors:
+    	//stop is before start and both start and stop are before 12, 
 		//stop is before 12 and start is after 12, 
 		//or stop is before start and both start and stop are after 12. 
-    	if ((stopHour < startHour && (startHour >= 5 && startHour <= 12) && (stopHour >= 5 && stopHour <= 12)) ||
-    		(stopHour >= 5 && stopHour <= 12 && startHour >= 1 && startHour <= 4) ||	
-    		(stopHour < startHour && startHour <= 4 && stopHour < 4 )) {
+    	if (stopBeforeStartBefore12 (startHour, stopHour) ||
+    		stopBefore12StartAfter12 (startHour, stopHour) ||	
+    		stopBeforeStartAfter12 (startHour, stopHour)) {
     		return START_STOP_ERROR;
     	}
     	
@@ -53,6 +54,27 @@ public class BabysitterBilling
     	return calculatePay(startHour, stopHour);
     	
     }
+	
+	//Determine if stop hour is before start hour and both are before 12PM.
+	private boolean stopBeforeStartBefore12 (int startHour, int stopHour) {
+		if (stopHour < startHour && (startHour >= 5 && startHour <= 12) && (stopHour >= 5 && stopHour <= 12)) {
+			return true;
+		} else return false; 
+	}
+	
+	//Determine if stop hour is before 12PM and start hour is after 12PM.
+	private boolean stopBefore12StartAfter12 (int startHour, int stopHour) {
+		if (stopHour >= 5 && stopHour <= 12 && startHour >= 1 && startHour <= 4) {
+			return true;
+		} else return false; 
+	}
+	
+	//Determine if stop hour is before start hour and both are after 12PM.
+	private boolean stopBeforeStartAfter12 (int startHour, int stopHour) {
+		if (stopHour < startHour && startHour <= 4 && stopHour < 4) {
+			return true;
+		} else return false; 
+	}
 	
 	//Initialize Family Pay Rate array:
 	//Family A: $15 per hour before 11pm, $20 afterwards. 
